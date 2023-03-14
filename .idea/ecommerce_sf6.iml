@@ -132,6 +132,9 @@
       <excludeFolder url="file://$MODULE_DIR$/ecommerce-sf6/vendor/sebastian/global-state" />
       <excludeFolder url="file://$MODULE_DIR$/ecommerce-sf6/vendor/sebastian/code-unit-reverse-lookup" />
       <excludeFolder url="file://$MODULE_DIR$/ecommerce-sf6/vendor/sebastian/object-reflector" />
+      <excludeFolder url="file://$MODULE_DIR$/ecommerce-sf6/vendor/doctrine/data-fixtures" />
+      <excludeFolder url="file://$MODULE_DIR$/ecommerce-sf6/vendor/doctrine/doctrine-fixtures-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/ecommerce-sf6/vendor/fakerphp/faker" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
