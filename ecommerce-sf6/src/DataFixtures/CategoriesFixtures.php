@@ -10,7 +10,7 @@ use function PHPUnit\Framework\returnCallback;
 
 class CategoriesFixtures extends Fixture
 {
-    public function __construct(private SluggerInterface $slugger){}
+    public function __construct(private readonly SluggerInterface $slugger){}
 
     public function load(ObjectManager $manager): void
     {
@@ -20,9 +20,16 @@ class CategoriesFixtures extends Fixture
          $this->createCategory('Ecrans', $parent, $manager);
          $this->createCategory('Souris', $parent, $manager);
 
+        $parent = $this->createCategory('Mode',null,$manager );
+
+        $this->createCategory('Homme', $parent, $manager);
+        $this->createCategory('Femme', $parent, $manager);
+        $this->createCategory('Enfant', $parent, $manager);
+
+
         $manager->flush();
     }
-    public function createCategory(string $name, Categories $parent =null, ObjectManager $manager )
+    public function createCategory(string $name, Categories $parent = null, ObjectManager $manager )
     {
         $category = new Categories();
         $category->setName($name);
