@@ -10,6 +10,8 @@ use function PHPUnit\Framework\returnCallback;
 
 class CategoriesFixtures extends Fixture
 {
+    private $counter = 1;
+
     public function __construct(private readonly SluggerInterface $slugger){}
 
     public function load(ObjectManager $manager): void
@@ -26,7 +28,6 @@ class CategoriesFixtures extends Fixture
         $this->createCategory('Femme', $parent, $manager);
         $this->createCategory('Enfant', $parent, $manager);
 
-
         $manager->flush();
     }
     public function createCategory(string $name, Categories $parent = null, ObjectManager $manager )
@@ -36,6 +37,9 @@ class CategoriesFixtures extends Fixture
         $category->setSlug($this->slugger->slug($category->getName())->lower());
         $category->setParent($parent);
         $manager->persist($category);
+
+        $this->addReference('cat-'.$this->counter, $category);
+        $this->counter++;
 
         return $category;
     }

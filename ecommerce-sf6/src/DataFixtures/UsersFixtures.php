@@ -40,7 +40,7 @@ class UsersFixtures extends Fixture
             $user->setAdress($faker->streetAddress);
             $user->setZipcode(str_replace(' ','',$faker->postcode));
             $user->setCity($faker->city);
-            $user->setPassword( $this->passwordEncoder->hashPassword($user, 'secret'));
+            $user->setPassword( $this->passwordEncoder->hashPassword($user,'secret'));
 
             $manager->persist($user);
         }
