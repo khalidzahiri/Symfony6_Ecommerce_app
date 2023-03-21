@@ -51,4 +51,50 @@ class JWTService {
             '/^[a-zA-0-9\-\_\=]+\.[a-zA-0-9\-\_\=]+\.[a-zA-0-9\-\_\=]+$/', $token
         ) === 1;
     }
+
+    // Je recupere le Payload
+    public function getPayload(string $token): array
+    {
+        // je demonte le token en plusieurs array a chaque fois quil y'a un .
+        $array = explode('.', $token);
+
+        // Je decode le Payload
+        $payload = json_decode(base64_decode($array[1]),true);
+
+        return $payload;
+    }
+
+    // Je verifie si le token a expiré
+    public function isExpired(string $token): bool
+    {
+        $payload = $this->getPayload($token);
+
+        $now = new \DateTimeImmutable();
+
+        return $payload['exp'] < $now->getTimestamp();
+    }
+
+    // Je verifie la signature du token
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
