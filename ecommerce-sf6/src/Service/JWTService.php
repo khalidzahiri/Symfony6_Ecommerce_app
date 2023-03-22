@@ -47,7 +47,7 @@ class JWTService {
     public function isValid(string $token): bool
     {
         return preg_match(
-            '/^[a-zA-0-9\-\_\=]+\.[a-zA-0-9\-\_\=]+\.[a-zA-0-9\-\_\=]+$/', $token
+            '/^[a-zA-Z0-9\-\_\=]+\.[a-zA-Z0-9\-\_\=]+\.[a-zA-Z0-9\-\_\=]+$/', $token
         ) === 1;
     }
 

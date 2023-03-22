@@ -48,7 +48,7 @@ class RegistrationController extends AbstractController
 
             // Je cree le Payload
             $payload = [
-                'user.id' => $user->getId()
+                'user_id' => $user->getId()
             ];
 
             //Je genere le token
@@ -75,7 +75,7 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-    #[Route('verif/{token}', name: 'verif_user')]
+    #[Route('verif/{token}', name: 'verify_user')]
     public function verifyUser($token, JWTService $jwt, UsersRepository $usersRepository, EntityManagerInterface $em): Response
     {
         // Je verifie si le token est valid, n'a pas expiré et n'a pas ete modifier
@@ -87,7 +87,7 @@ class RegistrationController extends AbstractController
             // Je recupere le user du token
             $user = $usersRepository->find($payload['user_id']);
 
-            // Je verifier que l'utilosateur existe et n'a pas activé son compte
+            // Je verifier que l'utilisateur existe et n'a pas activé son compte
 
             if ($user && !$user->getIsVerified()){
                 $user->setIsVerified(true);
@@ -95,10 +95,10 @@ class RegistrationController extends AbstractController
                 $this->addFlash('success', 'Votre compte est désormais Activé, Bienvenue :)');
                 return $this->redirectToRoute('profile_index');
             }
-            // est si le probleme se pose dans le token
-            $this->addFlash('danger', 'Attention! le token est invalid ou a éxpiré');
-            return $this->redirectToRoute('app_login');
         }
+        // et si le probleme se pose dans le token
+        $this->addFlash('danger', 'Attention! le token est invalid ou a éxpiré');
+        return $this->redirectToRoute('app_login');
     }
 
 }
