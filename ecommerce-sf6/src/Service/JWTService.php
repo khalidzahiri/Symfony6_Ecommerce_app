@@ -7,14 +7,13 @@ class JWTService {
 
     public function generate(array $header, array $payload, string $secret, int $validity = 10800):string
     {
-        if ($validity <=0 ){
-            return "";
-        }
-        $now = new \DateTimeImmutable();
-        $exp = $now->getTimestamp() + $validity;
+        if ($validity > 0){
+            $now = new \DateTimeImmutable();
+            $exp = $now->getTimestamp() + $validity;
 
-        $payload ['iat'] = $now->getTimestamp();
-        $payload ['exp'] = $exp;
+            $payload ['iat'] = $now->getTimestamp();
+            $payload ['exp'] = $exp;
+        }
 
         // On encode en base64
 
@@ -64,6 +63,18 @@ class JWTService {
         return $payload;
     }
 
+    // Je recupere le Header
+    public function getHeader(string $token): array
+    {
+        // je demonte le token en plusieurs array a chaque fois quil y'a un .
+        $array = explode('.', $token);
+
+        // Je decode le Header
+        $header = json_decode(base64_decode($array[0]),true);
+
+        return $header;
+    }
+
     // Je verifie si le token a expiré
     public function isExpired(string $token): bool
     {
@@ -75,7 +86,17 @@ class JWTService {
     }
 
     // Je verifie la signature du token
+    public function check(string $token, string $secret)
+    {
+        // je recupere le header et le payload
+        $header = $this->getHeader($token);
+        $payload = $this->getPayload($token);
 
+        // Je regenere le token
+        $verifToken =  $this->generate($header, $payload, $secret, 0);
+
+        return $token === $verifToken;
+    }
 
 }
 
