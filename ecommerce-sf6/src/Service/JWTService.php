@@ -2,6 +2,9 @@
 
 namespace App\Service;
 
+use App\Repository\UsersRepository;
+use http\Env\Response;
+
 class JWTService {
     // On génére le token
 
@@ -97,6 +100,7 @@ class JWTService {
 
         return $token === $verifToken;
     }
+
 
 }
 
