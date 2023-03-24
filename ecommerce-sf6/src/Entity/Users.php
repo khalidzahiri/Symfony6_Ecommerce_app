@@ -211,9 +211,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->resetToken;
     }
+
     public function setResetToken(?string $resetToken): self
     {
         $this->resetToken = $resetToken;
+        return $this;
     }
 
     /**
