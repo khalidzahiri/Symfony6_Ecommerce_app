@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\ResetPasswordRequestFormType;
 use App\Repository\UsersRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +39,8 @@ class SecurityController extends AbstractController
     public function forgottenPassword(
         Request $request,
         UsersRepository $usersRepository,
-        TokenGeneratorInterface $tokenGenerator
+        TokenGeneratorInterface $tokenGenerator,
+        EntityManagerInterface $entityManager
     ): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -54,6 +56,9 @@ class SecurityController extends AbstractController
             if ($user){
                 // Je génére un token de réinitialisation
                 $token = $tokenGenerator->generateToken();
+                $user->setResetToken($token);
+                $entityManager->persist($user);
+                $entityManager->flush();
             }
             // si y'a pas (user = null)
             $this->addFlash('danger', 'un probléme est survenue ');
