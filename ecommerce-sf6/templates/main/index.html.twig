@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!
+{% block title %} Acceuil
 {% endblock %}
 
 {% block body %}
@@ -21,7 +21,7 @@
 						<div class="card">
 							<div class="card-body">
 								<h3 class="card-title">{{ category.name }}</h3>
-								<a href="{{ path('categories_list',{slug: category.slug}) }}" class="btn btn-primary">Voir les produits</a>
+								<a href="{{ path('categories_list',{slug: category.slug}) }}" class="btn btn-primary"> Voir les produits </a>
 							</div>
 						</div>
 					</div>
