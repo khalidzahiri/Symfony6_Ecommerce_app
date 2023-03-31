@@ -14,7 +14,7 @@
                 <div id="carouselExampleIndicators" class="carousel slide">
                     <div class="carousel-indicators">
                         {% for iteration in 1..product.images|length %}
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ iteration -1 }}" class="active" aria-current="true" aria-label="Slide {{ iteration }}"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ iteration -1 }}" {{ (loop.first) ? 'class="active" aria-current="true"' : '' }} aria-label="Slide {{ iteration }}"></button>
                         {% endfor %}
 
                     </div>
