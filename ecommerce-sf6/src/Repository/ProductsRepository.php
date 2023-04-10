@@ -38,11 +38,11 @@ class ProductsRepository extends ServiceEntityRepository
 
         $paginator = new Paginator($query);
         $data = $paginator->getQuery()->getResult();
-        dd($data);
+
 
         // Je verifie que j'ai des données
         if (empty($data)){
-            return $resul;
+            return $result;
         }
 
         // Je calcul le nombre de pages
